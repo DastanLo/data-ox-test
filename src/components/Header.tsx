@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+import {NavLink} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -6,12 +8,9 @@ import Typography from '@material-ui/core/Typography';
 import {fade, makeStyles} from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import {NavLink, useParams} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
 import {InputBase} from "@material-ui/core";
 import {toggleDrawer} from "../store/commonActions";
 import {searchPost} from "../store/postAction";
-import {searchComment} from "../store/commentAction";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -94,12 +93,7 @@ const Header: React.FC = () => {
   const classes = useStyles();
   const [input, setInput] = useState<string>('');
   const dispatch = useDispatch();
-  const {postId}:any = useParams();
-  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(postId);
-    if (postId) {
-     return dispatch(searchComment(e.target.value));
-    }
+  const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>):void => {
     dispatch(searchPost(e.target.value));
     setInput(e.target.value);
   }
@@ -141,7 +135,7 @@ const Header: React.FC = () => {
               root: classes.inputRoot,
               input: classes.inputInput,
             }}
-            inputProps={{ 'aria-label': 'search' }}
+            inputProps={{'aria-label': 'search'}}
           />
         </div>
         <Typography className={classes.logo} variant="h6" noWrap/>

@@ -94,9 +94,6 @@ const reducer = (state: IState = initialState, action: Action): IState => {
     case ac.SEARCH_POST:
       const posts = state.allPosts.filter(post => post.title.includes(action.payload));
       return {...state, posts};
-    case ac.SEARCH_COMMENT:
-      const comments = state.comments.filter(comment => comment.body.includes(action.payload));
-      return {...state, comments};
     default:
       return state;
   }
